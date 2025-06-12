@@ -1,0 +1,726 @@
+{
+  "address": "A8aaqLS7S5bts7mjapKtgTMJWakNNNm6KzQZrs1hbrpU",
+  "metadata": {
+    "name": "anonymous_confessions",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "get_confessions_by_category",
+      "discriminator": [
+        40,
+        182,
+        131,
+        239,
+        64,
+        101,
+        118,
+        193
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "category",
+          "type": "u8"
+        },
+        {
+          "name": "_start_id",
+          "type": "u64"
+        },
+        {
+          "name": "limit",
+          "type": "u8"
+        }
+      ],
+      "returns": {
+        "vec": "u64"
+      }
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "confession_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "like_confession",
+      "discriminator": [
+        72,
+        77,
+        60,
+        228,
+        163,
+        36,
+        92,
+        71
+      ],
+      "accounts": [
+        {
+          "name": "confession",
+          "writable": true
+        },
+        {
+          "name": "like_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  105,
+                  107,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "confession.id",
+                "account": "Confession"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "moderate_confession",
+      "discriminator": [
+        174,
+        232,
+        74,
+        40,
+        161,
+        91,
+        2,
+        68
+      ],
+      "accounts": [
+        {
+          "name": "confession_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "confession",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "hide",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "post_confession",
+      "discriminator": [
+        42,
+        177,
+        223,
+        21,
+        193,
+        249,
+        1,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "confession_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "confession",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "confession_state.total_confessions",
+                "account": "ConfessionState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "name": "salt",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "report_confession",
+      "discriminator": [
+        182,
+        23,
+        153,
+        242,
+        254,
+        15,
+        234,
+        201
+      ],
+      "accounts": [
+        {
+          "name": "confession",
+          "writable": true
+        },
+        {
+          "name": "report_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  112,
+                  111,
+                  114,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "confession.id",
+                "account": "Confession"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "reason",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Confession",
+      "discriminator": [
+        148,
+        143,
+        193,
+        47,
+        121,
+        155,
+        96,
+        130
+      ]
+    },
+    {
+      "name": "ConfessionState",
+      "discriminator": [
+        128,
+        219,
+        97,
+        135,
+        178,
+        89,
+        97,
+        93
+      ]
+    },
+    {
+      "name": "LikeRecord",
+      "discriminator": [
+        179,
+        237,
+        53,
+        5,
+        91,
+        236,
+        161,
+        50
+      ]
+    },
+    {
+      "name": "ReportRecord",
+      "discriminator": [
+        22,
+        45,
+        97,
+        27,
+        107,
+        124,
+        93,
+        170
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ConfessionLiked",
+      "discriminator": [
+        7,
+        26,
+        121,
+        218,
+        25,
+        241,
+        100,
+        53
+      ]
+    },
+    {
+      "name": "ConfessionModerated",
+      "discriminator": [
+        128,
+        198,
+        39,
+        128,
+        3,
+        80,
+        247,
+        132
+      ]
+    },
+    {
+      "name": "ConfessionPosted",
+      "discriminator": [
+        13,
+        231,
+        175,
+        32,
+        8,
+        228,
+        70,
+        4
+      ]
+    },
+    {
+      "name": "ConfessionReported",
+      "discriminator": [
+        90,
+        46,
+        147,
+        114,
+        246,
+        199,
+        102,
+        195
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "ContentTooLong",
+      "msg": "Content must be between 10-500 characters"
+    },
+    {
+      "code": 6001,
+      "name": "ContentTooShort",
+      "msg": "Content must be at least 10 characters"
+    },
+    {
+      "code": 6002,
+      "name": "SaltTooShort",
+      "msg": "Salt must be at least 8 characters"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidCategory",
+      "msg": "Invalid category (0-10)"
+    },
+    {
+      "code": 6004,
+      "name": "PostingTooFrequently",
+      "msg": "Please wait before posting again"
+    },
+    {
+      "code": 6005,
+      "name": "AlreadyLiked",
+      "msg": "Already liked this confession"
+    },
+    {
+      "code": 6006,
+      "name": "AlreadyReported",
+      "msg": "Already reported this confession"
+    },
+    {
+      "code": 6007,
+      "name": "ConfessionHidden",
+      "msg": "Confession is hidden"
+    },
+    {
+      "code": 6008,
+      "name": "ReasonTooLong",
+      "msg": "Reason must be between 5-100 characters"
+    },
+    {
+      "code": 6009,
+      "name": "ReasonTooShort",
+      "msg": "Reason must be at least 5 characters"
+    },
+    {
+      "code": 6010,
+      "name": "LimitTooHigh",
+      "msg": "Limit cannot exceed 50"
+    },
+    {
+      "code": 6011,
+      "name": "Unauthorized",
+      "msg": "Unauthorized action"
+    }
+  ],
+  "types": [
+    {
+      "name": "Confession",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "fingerprint",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "likes",
+            "type": "u64"
+          },
+          {
+            "name": "reports",
+            "type": "u64"
+          },
+          {
+            "name": "is_hidden",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfessionLiked",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "confession_id",
+            "type": "u64"
+          },
+          {
+            "name": "total_likes",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfessionModerated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "confession_id",
+            "type": "u64"
+          },
+          {
+            "name": "is_hidden",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfessionPosted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "fingerprint",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfessionReported",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "confession_id",
+            "type": "u64"
+          },
+          {
+            "name": "total_reports",
+            "type": "u64"
+          },
+          {
+            "name": "is_hidden",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfessionState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "total_confessions",
+            "type": "u64"
+          },
+          {
+            "name": "last_confession_slot",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LikeRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "confession_id",
+            "type": "u64"
+          },
+          {
+            "name": "has_liked",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReportRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "confession_id",
+            "type": "u64"
+          },
+          {
+            "name": "has_reported",
+            "type": "bool"
+          },
+          {
+            "name": "reason",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

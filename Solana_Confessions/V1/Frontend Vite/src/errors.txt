@@ -1,0 +1,15 @@
+Errors encountered during file downloads:
+
+Date and Time: 2025-06-12T02:45:21.244Z
+Browser: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+URL Parameters: {"url":"https://github.com/octonetai/solanadapp.git","id":"ecc7cf16-33d3-433b-bee7-74b7384e0a40","pa":"A8aaqLS7S5bts7mjapKtgTMJWakNNNm6KzQZrs1hbrpU"}
+Repository URL: https://github.com/octonetai/solanadapp.git
+
+DETAILED ERROR LOG:
+Error fetching program binary information: Failed to fetch
+
+TROUBLESHOOTING STEPS:
+1. Verify that the octomcp.xyz:3001 server is running and accessible
+2. Check if the ID parameter is valid: ecc7cf16-33d3-433b-bee7-74b7384e0a40
+3. Inspect network traffic in browser developer tools for more details
+4. Verify that CORS is properly configured on the server
