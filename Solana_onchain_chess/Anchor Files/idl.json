@@ -1,0 +1,425 @@
+{
+  "address": "7Le8FobBEEcKUdSY25NdYLpsAXxNSYFD1NGzTB4eZXkw",
+  "metadata": {
+    "name": "chess_game",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "accept_draw",
+      "discriminator": [
+        5,
+        12,
+        23,
+        213,
+        201,
+        27,
+        117,
+        193
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true
+        },
+        {
+          "name": "player",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_game",
+      "discriminator": [
+        44,
+        62,
+        102,
+        247,
+        126,
+        208,
+        130,
+        215
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  97,
+                  109,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "white_player",
+          "type": "pubkey"
+        },
+        {
+          "name": "black_player",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "make_move",
+      "discriminator": [
+        78,
+        77,
+        152,
+        203,
+        222,
+        211,
+        208,
+        233
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true
+        },
+        {
+          "name": "player",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "from_square",
+          "type": "u8"
+        },
+        {
+          "name": "to_square",
+          "type": "u8"
+        },
+        {
+          "name": "promotion_piece",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "PieceType"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "offer_draw",
+      "discriminator": [
+        87,
+        16,
+        73,
+        235,
+        76,
+        137,
+        216,
+        229
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true
+        },
+        {
+          "name": "player",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resign",
+      "discriminator": [
+        177,
+        177,
+        153,
+        96,
+        88,
+        149,
+        206,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "game",
+          "writable": true
+        },
+        {
+          "name": "player",
+          "signer": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GameState",
+      "discriminator": [
+        144,
+        94,
+        208,
+        172,
+        248,
+        99,
+        134,
+        120
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotYourTurn",
+      "msg": "It's not your turn"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidMove",
+      "msg": "Invalid move"
+    },
+    {
+      "code": 6002,
+      "name": "GameNotInProgress",
+      "msg": "Game is not in progress"
+    },
+    {
+      "code": 6003,
+      "name": "NotAPlayer",
+      "msg": "You are not a player in this game"
+    },
+    {
+      "code": 6004,
+      "name": "NoDrawOffer",
+      "msg": "No draw offer to accept"
+    }
+  ],
+  "types": [
+    {
+      "name": "CastlingRights",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "white_kingside",
+            "type": "bool"
+          },
+          {
+            "name": "white_queenside",
+            "type": "bool"
+          },
+          {
+            "name": "black_kingside",
+            "type": "bool"
+          },
+          {
+            "name": "black_queenside",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GameState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "white_player",
+            "type": "pubkey"
+          },
+          {
+            "name": "black_player",
+            "type": "pubkey"
+          },
+          {
+            "name": "current_turn",
+            "type": {
+              "defined": {
+                "name": "Player"
+              }
+            }
+          },
+          {
+            "name": "game_status",
+            "type": {
+              "defined": {
+                "name": "GameStatus"
+              }
+            }
+          },
+          {
+            "name": "winner",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "board",
+            "type": {
+              "array": [
+                {
+                  "array": [
+                    {
+                      "option": {
+                        "defined": {
+                          "name": "Piece"
+                        }
+                      }
+                    },
+                    8
+                  ]
+                },
+                8
+              ]
+            }
+          },
+          {
+            "name": "move_count",
+            "type": "u32"
+          },
+          {
+            "name": "castling_rights",
+            "type": {
+              "defined": {
+                "name": "CastlingRights"
+              }
+            }
+          },
+          {
+            "name": "en_passant_target",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "halfmove_clock",
+            "type": "u8"
+          },
+          {
+            "name": "fullmove_number",
+            "type": "u32"
+          },
+          {
+            "name": "draw_offered_by_white",
+            "type": "bool"
+          },
+          {
+            "name": "draw_offered_by_black",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GameStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "InProgress"
+          },
+          {
+            "name": "WhiteWins"
+          },
+          {
+            "name": "BlackWins"
+          },
+          {
+            "name": "Draw"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Piece",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "piece_type",
+            "type": {
+              "defined": {
+                "name": "PieceType"
+              }
+            }
+          },
+          {
+            "name": "color",
+            "type": {
+              "defined": {
+                "name": "Player"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "PieceType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pawn"
+          },
+          {
+            "name": "Rook"
+          },
+          {
+            "name": "Knight"
+          },
+          {
+            "name": "Bishop"
+          },
+          {
+            "name": "Queen"
+          },
+          {
+            "name": "King"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Player",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "White"
+          },
+          {
+            "name": "Black"
+          }
+        ]
+      }
+    }
+  ]
+}
